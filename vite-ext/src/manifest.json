@@ -25,6 +25,8 @@
     "default_path": "src/side_panel.html"
   },
   "permissions": [
-    "sidePanel"
+    "sidePanel",
+    "storage",
+    "contextMenus"
   ]
 }
