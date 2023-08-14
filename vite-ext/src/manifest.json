@@ -27,6 +27,7 @@
   "permissions": [
     "sidePanel",
     "storage",
-    "contextMenus"
+    "contextMenus",
+    "tabs"
   ]
 }

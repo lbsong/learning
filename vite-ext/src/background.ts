@@ -24,10 +24,14 @@ async function genericOnClick(info: any, tab: any) {
     let getResult = await chrome.storage.sync.get([word]);
     console.log(getResult);
 
-    chrome.runtime.sendMessage({
-        name: 'define-word',
-        data: { value: word }
-      });
+    // chrome.runtime.sendMessage({
+    //     name: 'define-word',
+    //     data: { value: word }
+    //   });
+
+    const def = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    const defJson = await def.json();
+    console.log(defJson);
 }
 
 chrome.runtime.onInstalled.addListener((details) => {
@@ -39,6 +43,14 @@ chrome.runtime.onInstalled.addListener((details) => {
     contexts: ["selection"],
     id: "selection"
   });
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.name === 'define-word') {
+        chrome.tabs.create({
+        url: `https://www.google.com/search?q=define+${request.data.value}`
+        });
+    }
 });
 
 chrome.sidePanel
