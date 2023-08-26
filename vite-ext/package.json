@@ -8,6 +8,7 @@
     "build": "vue-tsc && vite build"
   },
   "dependencies": {
+    "openai": "^4.2.0",
     "vue": "^3.2.47"
   },
   "devDependencies": {
