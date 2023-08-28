@@ -12,22 +12,25 @@ chrome.contextMenus.onClicked.addListener((info: chrome.contextMenus.OnClickData
 async function genericOnClick(info: any, tab: any) {
     let word = info.selectionText;
 
-    let setResult = await chrome.storage.sync.get([word]);
+    let setResult = await chrome.storage.local.get([word]);
     let frequency = 1;
+
     if (Object.keys(setResult).length != 0) {
         frequency = setResult[word].frequency + 1;
     }
 
     console.log(frequency);
     var vocab = { "frequency": frequency }
-    await chrome.storage.sync.set({[word]: vocab});
-    let getResult = await chrome.storage.sync.get([word]);
+    await chrome.storage.local.set({[word]: vocab});
+    console.log("Word added to storage");
+    let getResult = await chrome.storage.local.get([word]);
+    console.log("Word retrieved from storage");
     console.log(getResult);
 
-    // chrome.runtime.sendMessage({
-    //     name: 'define-word',
-    //     data: { value: word }
-    //   });
+    chrome.runtime.sendMessage({
+        name: 'define-word',
+        data: { value: word }
+      });
 
     const def = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
     const defJson = await def.json();
@@ -51,6 +54,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         url: `https://www.google.com/search?q=define+${request.data.value}`
         });
     }
+});
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+    console.log("Storage changed");
 });
 
 chrome.sidePanel
