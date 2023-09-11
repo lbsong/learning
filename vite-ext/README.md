@@ -3,10 +3,16 @@ This readme is to record my learning path to build chrome/edge extensions with V
 The goal is to build a chrome extension to help learn English. When I read news or any posts online and encounter some vocabulary, I would like to add them into some collection and later I should be reminded to review and practice the usage of the vocabulary. I would like to leverage OpenAI to generate practicing problems. 
 
 ## Updates
+- **day n + 4** - **[2023-09-04]**: 
+  - Finished the quick tutorial of Vue
+  - 
 - **day n + 3** - **[2023-09-02]**: 
   - Figured out how to update vue from chrome onMessage listener funciton: use vue reactive
   - How to render an array in Vue to show the meanings of the vocabulary
   - How to define class with TypeScript and Vue
+    - I figure I need to learn Vue first
+      - What Vue can do: 
+      - SFC: single file component (*.vue)
 - **day n + 2** - **[2023-08-27]**: 
   - How to communicate between service worker and side panel, because the function of adding vocabulary is in service worker, and the added vocabulary should be displayed on side panel.
     - might use other technique, as long as side panel displays the added vocabulary

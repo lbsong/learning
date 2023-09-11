@@ -1,6 +1,3 @@
-
-console.log("Hello from the background!");
-
 // A generic onclick callback function.
 chrome.contextMenus.onClicked.addListener((info: chrome.contextMenus.OnClickData) => {
     if (info.menuItemId === "selection") {
@@ -19,22 +16,12 @@ async function genericOnClick(info: any, tab: any) {
         frequency = setResult[word].frequency + 1;
     }
 
-    console.log(frequency);
     var vocab = { "frequency": frequency }
     await chrome.storage.local.set({[word]: vocab});
-    console.log("Word added to storage");
-    let getResult = await chrome.storage.local.get([word]);
-    console.log("Word retrieved from storage");
-    console.log(getResult);
-
     chrome.runtime.sendMessage({
         name: 'define-word',
         data: { value: word }
       });
-
-    const def = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-    const defJson = await def.json();
-    console.log(defJson);
 }
 
 chrome.runtime.onInstalled.addListener((details) => {
@@ -57,7 +44,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
-    console.log("Storage changed");
+    // console.log("Storage changed");
 });
 
 chrome.sidePanel
